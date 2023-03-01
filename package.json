@@ -1,0 +1,29 @@
+{
+  "name": "pauch",
+  "version": "1.0.0",
+  "engines": {
+    "node": "18.x"
+  },
+  "bin": {
+    "pauch": "./src/bin.js"
+  },
+  "description": "Makes creating commits easier",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "pauch": "pauch",
+    "dev": "node ./src/index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "pauch": "file://.",
+    "standard": "^17.0.0"
+  },
+  "dependencies": {
+    "@bdsqqq/try": "2.3.1",
+    "@clack/prompts": "0.6.1",
+    "picocolors": "1.0.0"
+  }
+}
