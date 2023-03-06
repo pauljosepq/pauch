@@ -4,41 +4,41 @@ import { promisify } from 'node:util'
 const execAsync = promisify(exec)
 
 function cleanStdout (stdout) {
-    return stdout.trim().split('\n').filter(Boolean)
+  return stdout.trim().split('\n').filter(Boolean)
 }
 
 export async function getChangedFiles () {
-    const { stdout } = await execAsync('git status --porcelain')
-    return cleanStdout(stdout).map((line) => line.split(' ').at(-1))
+  const { stdout } = await execAsync('git status --porcelain')
+  return cleanStdout(stdout).map((line) => line.split(' ').at(-1))
 }
 
 export async function getStagedFiles () {
-    const { stdout } = await execAsync('git diff --cached --name-only')
-    return cleanStdout(stdout)
+  const { stdout } = await execAsync('git diff --cached --name-only')
+  return cleanStdout(stdout)
 }
 
 export async function gitCommit ({ commit } = {}) {
-    const { stdout } = await execAsync(`git commit -m "${commit}"`)
-    return cleanStdout(stdout)
+  const { stdout } = await execAsync(`git commit -m "${commit}"`)
+  return cleanStdout(stdout)
 }
 
 export async function gitAmend ({ commit, amendMessage } = {}) {
-    if(amendMessage){
-        const { stdout } = await execAsync(`git commit --amend -m "${commit}"`)
-        return cleanStdout(stdout)
-    }
-
-    const { stdout } = await execAsync(`git commit --amend --no-edit`)
+  if (amendMessage) {
+    const { stdout } = await execAsync(`git commit --amend -m "${commit}"`)
     return cleanStdout(stdout)
+  }
+
+  const { stdout } = await execAsync('git commit --amend --no-edit')
+  return cleanStdout(stdout)
 }
 
 export async function gitAdd ({ files = [] } = {}) {
-    const filesLine = files.join(' ')
-    const { stdout } = await execAsync(`git add ${filesLine}`)
-    return cleanStdout(stdout)
+  const filesLine = files.join(' ')
+  const { stdout } = await execAsync(`git add ${filesLine}`)
+  return cleanStdout(stdout)
 }
 
 export async function getLastMessage () {
-    const { stdout } = await execAsync(`git log -1 --pretty=%B"`);
-    return cleanStdout(stdout);
+  const { stdout } = await execAsync('git log -1 --pretty=%B"')
+  return cleanStdout(stdout)
 }
